@@ -1,0 +1,48 @@
+Name: Maarten van Doornik
+
+Question 1: What are the advantages of using CLI? Can you think of some examples?
+
+Advantages:
+-	Able to provide more detailed tasks to the computer than what is possible with a GUI
+-	Possibility to use loops (for, while) and conditional statements (if-then-else)
+-	Programs are easier to automate via scripting
+-	Sometimes faster in performing tasks
+-	It takes less from the computers’ resources
+
+For example, computer programmers benefit a lot from the fact that a CLI is faster and takes less of the computers’ resources when they perform many big tasks. 
+
+Question 2: What is a shell script?
+
+A shell script is a text file that contains commands that are interpreted by the shell. Each command can be linked in a script to combine several commands by providing the output of one as input to the other. Shell scripts can also contain the control structures common to the majority of programming languages (i.e. variables, logic constructs, looping constructs, functions and comments). The main distinction between shell programs and those written in C, C++, Java (to name but a few) is that shell programs are not compiled for execution, but are readily interpreted by the shell.
+
+Question 3: What is the difference between ls -l, ls -lh and ls -lh --si?
+
+ls -1 lists the files in a directory (ls command) in the long format (-l option).
+ls lh does the same thing but prints the sizes in human readable format, such as 1K.
+ls lh si also prints the sizes in human readable format, but uses powers of 1000 instead of 1024. 
+
+Question 4: Why do we add ./ in front of the Bash script?
+
+The dot refers to the current directory, which is the Bash directory in which the script is located. The slash is used to refer to a file within the current directory. Leaving out the ./ would make the terminal read the name of the file as a command itself.  
+
+Question 5: Try it out yourself, and try to do a calculation of e.g. a + b as input variables.
+
+#!/bin/bash
+echo "Now with the read function"
+clear
+echo "Please enter the value of a"
+read a
+echo "Please enter the value of b"
+read b
+echo "Sum:" $(( $a + $b ))
+
+Question 6: Try to write to calculate the NDVI using the lines above in a nice and short shell script.
+
+cd data
+
+echo "* Assign input file to a variable"
+input=$(ls LE71700552001036SGS00_SR_Gewata_INT1U.tif)
+
+echo "* Calculate NDVI"
+gdal_calc.py -A $input --A_band=4 -B $input --B_band=3  --outfile=ndvi.tif  --calc="(A.astype(float)-B)/(A.astype(float)+B)" --type='Float32'
+
